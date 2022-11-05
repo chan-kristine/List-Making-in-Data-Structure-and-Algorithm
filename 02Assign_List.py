@@ -20,63 +20,86 @@ min = 0
 max = 100
 OFFSETT = 4
  
-genlist= [1, 3, 10, 22, 35, 40, 47, 56, 69, 77]
+list= [48, 3, 10, 22, 35, 40, 99, 56, 69, 77]
 
 
-# 'menu', creates the main menu to choose option or exit program
+# Main Menu
 
 def get_list_values():
     return sorted(random.sample(range(min, max), totalvalues)) 
 
 def list_menu():
-    name = "Welcome Aboard Player"
-    dotted = (OFFSETT+len(name))*''
-    genlist = get_list_values()
-    options = ["Reverse Elements", "Sort the Elements", "Delete an Element", "Sum of all Elements", "Exit Program" ]
-    print('{} \n{} \n{}'.format(dotted, name, dotted))
-    print("\nArray: ","[1, 3, 10, 22, 35, 40, 47, 56, 69, 77]", "\n")
+    print(' \n \n')
+    print("                                                Welcome Aboard Player!")
+    options = ["Reverse Elements", "Sort the Elements", "Delete an Element","Add an Element", "Sort in  Decending order", "Sum of all Elements", "Exit Program" ]
+    
+    print("                              Your Array is this:",list, "\n")
+    print(' \n \n')
     print("What would you like to do ?")
     for i, opt in enumerate(options):
         print(i+1, opt)
-    print(dotted)
+    
 
 
 # Sum of all Elements        
 def sum_element():
-    sumlist = sum(genlist)
+    sumlist = sum(list)
     print("\nThe sum of the values in the list is: ", sumlist, "\n")
-    print("\033[01m\nYour New Array: ", genlist, "\n\033[01m")
+    print("\nYour New Array: ", list, "\n")
     main()
     
+def desc_element():
+    list.sort()
+    list.reverse()
+    print("The list has been arranged in descending order!")
+    print("\nYour New Array: ", list, "\n")
+    main()
+    
+# Reverse Elements   
 def rev_element():
-    genlist.reverse()
+    list.reverse()
     print("The list has been reversed!")
-    print("\033[01m\nYour New Array: ", genlist, "\n\033[01m")
+    print("\nYour New Array: ", list, "\n")
     main()
     
 # Sort Elements
 def sort_element():
-    genlist.sort()
-    print("\033[01m\nYour New Array: ", genlist, "\n\033[01m")
+    list.sort()
+    print("\nYour New Array: ", list, "\n")
     main()
     
-
 # delete element
 def delete_element():
-    while len(genlist) >= totalvalues:
+    while len(list) >= totalvalues:
         pickdel = input("Select the number you want to delete from the list: ")
         try:
             pickdel = int(pickdel) 
         except:
-            print("Sorry! Your input must be an integer.")
+            print("Error! Your input must be an integer.")
             continue
-        if pickdel in genlist:
-            genlist.remove(pickdel)
-            print("\033[01m'The number has been deleted!'\033[01m")
-            print("\033[01m'\nYour New Array: ", genlist, "\033[01m\n")
+        if pickdel in list:
+            list.remove(pickdel)
+            print("The number has been deleted!")
+            print("\nYour New Array: ", list, "\n")
             main()
         else:
             print("Error! Your number was not in the list!")
+
+def add_element():
+    while len(list) >= totalvalues:
+        add = input("Input the number between {} and {} that you want to add to this list: ".format(min, max))
+        try:
+            add = int(add)
+        except:
+            print("Error! Your input must be an integer.")
+            continue
+        if min <= add <= max:
+            list.append(add)
+            print("The number has been added!")
+            print("\nYour New Array: ", list, "\n")
+            main()
+        else:
+            print("Error! Your number was not in range")
 
             
 def main():
@@ -94,13 +117,24 @@ def main():
             print(string)
             delete_element()
             break   
-        elif choice == '4':
+        elif choice=='4':
+            string = '\n'"Add an element " + "selected!"
+            print(string)
+            add_element()
+            break   
+        elif choice == '5':
+            string = '\n'"Arrange in descending order " + "selected!"
+            desc_element()            
+            break
+        elif choice == '6':
             string = '\n'"Find the sum " + "selected!"
             sum_element()
             break
-        elif choice== '5':
+        elif choice== '7':
             print ("Thank You for Playing!\n")
             break
+        else:
+            print("Invalid option.")
             
 main()
 
